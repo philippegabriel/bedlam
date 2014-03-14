@@ -1,49 +1,39 @@
-all: xyzMatrix.txt xyzlistuniq.txt xyzvectoruniq.txt gridDef.stp.txt xyzvectors.stp.txt xyzListEncoded.txt
+targets=list.tmp.txt xyz3D.tmp.txt xyz3Drotated.tmp.txt xyz3Dtranslated.tmp.txt test.tmp.txt xyzlist.tmp.txt xyzMatrix.tmp.txt xyzlistuniq.tmp.txt xyzListEncoded.tmp.txt
+targets+=xyzvectoruniq.tmp.txt xyzvectors.stp gridDef.stp solutionList.stp.csv
 
-list.txt: matrix.txt
-	perl matrixToList.pl < matrix.txt > list.txt
-xyz3D.txt: list.txt
-	perl listToXyz3D.pl < list.txt > xyz3D.txt
-xyz3Drotated.txt: xyz3D.txt
-	perl xyz3DRotate.pl < xyz3D.txt > xyz3Drotated.txt
-xyz3Dtranslated.txt: xyz3Drotated.txt
-	perl xyz3DTranslate.pl < xyz3Drotated.txt > xyz3Dtranslated.txt
-xyzlist.txt: xyz3Dtranslated.txt
-	perl xyz3DToxyzList.pl < xyz3Dtranslated.txt > xyzlist.txt
-xyzlistuniq.txt: xyzlist.txt
-	cat xyzlist.txt | sort | uniq > xyzlistuniq.txt
-xyzMatrix.txt: xyzlist.txt
-	perl xyzListToMatrix.pl < xyzlist.txt > xyzMatrix.txt
+all: xyzMatrix.tmp.txt xyzlistuniq.tmp.txt xyzvectoruniq.tmp.txt gridDef.stp xyzvectors.stp xyzListEncoded.tmp.txt
 
-xyzvectoruniq.txt: xyzlistuniq.txt
-	perl xyzListToVector.pl < xyzlistuniq.txt > xyzvectoruniq.txt
-xyzListEncoded.txt: xyzlistuniq.txt
-	perl xyzListToxyzListEncoded.pl < xyzlistuniq.txt > xyzListEncoded.txt
+list.tmp.txt: matrix.txt
+	perl matrixToList.pl < matrix.txt > list.tmp.txt
+xyz3D.tmp.txt: list.tmp.txt
+	perl listToXyz3D.pl < list.tmp.txt > xyz3D.tmp.txt
+xyz3Drotated.tmp.txt: xyz3D.tmp.txt
+	perl xyz3DRotate.pl < xyz3D.tmp.txt > xyz3Drotated.tmp.txt
+xyz3Dtranslated.tmp.txt: xyz3Drotated.tmp.txt
+	perl xyz3DTranslate.pl < xyz3Drotated.tmp.txt > xyz3Dtranslated.tmp.txt
+xyzlist.tmp.txt: xyz3Dtranslated.tmp.txt
+	perl xyz3DToxyzList.pl < xyz3Dtranslated.tmp.txt > xyzlist.tmp.txt
+xyzlistuniq.tmp.txt: xyzlist.tmp.txt
+	cat xyzlist.tmp.txt | sort | uniq > xyzlistuniq.tmp.txt
+xyzMatrix.tmp.txt: xyzlist.tmp.txt
+	perl xyzListToMatrix.pl < xyzlist.tmp.txt > xyzMatrix.tmp.txt
 
-gridDef.stp.txt: gridDef.txt
-	perl convertToSTP.pl < gridDef.txt >gridDef.stp.txt
-xyzvectors.stp.txt: xyzvectoruniq.txt
-	perl convertToSTP.pl < xyzvectoruniq.txt >xyzvectors.stp.txt
+xyzvectoruniq.tmp.txt: xyzlistuniq.tmp.txt
+	perl xyzListToVector.pl < xyzlistuniq.tmp.txt > xyzvectoruniq.tmp.txt
+xyzListEncoded.tmp.txt: xyzlistuniq.tmp.txt
+	perl xyzListToxyzListEncoded.pl < xyzlistuniq.tmp.txt > xyzListEncoded.tmp.txt
+
+gridDef.stp: gridDef.txt
+	perl convertToSTP.pl < gridDef.txt >gridDef.stp
+xyzvectors.stp: xyzvectoruniq.tmp.txt
+	perl convertToSTP.pl < xyzvectoruniq.tmp.txt >xyzvectors.stp
 	
 clean:
-	rm -f list.txt
-	rm -f xyz3D.txt
-	rm -f xyz3Drotated.txt  
-	rm -f xyz3Dtranslated.txt
-	rm -f test.txt
-	rm -f xyzlist.txt
-	rm -f xyzMatrix.txt
-	rm -f xyzlistuniq.txt
-	rm -f xyzListEncoded.txt
-	rm -f xyzvectoruniq.txt
-	rm -f xyzvectors.stp.txt
-	rm -f gridDef.stp.txt
-	rm -f solutionList.stp.csv
-
+	rm -f $(targets)
 testvector:
-	perl listToMatrix.pl < vectors.txt > test.txt
-	diff matrix.txt test.txt
+	perl listToMatrix.pl < vectors.txt > test.tmp.txt
+	diff matrix.txt test.tmp.txt
 testsolution:
-	perl xyzListEncodedToSolution.pl < xyzListEncoded_solution.stp.txt > solutionList.stp.csv
+	perl xyzListEncodedToSolution.pl < xyzListEncoded_solution.stp > solutionList.stp.csv
 
 
