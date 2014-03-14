@@ -1,0 +1,185 @@
+each point x,y,z 0<=x,y,z<=3
+minimal encoding is 6 bits
+x0x1y0y1z0z1
+
+what is the encoding with "guard" bit(s)
+
+ 01234	 01234
+011001	000001
+101001	101101
+200001	200001
+300001	300001
+411111	411111
+and last plane:
+all 1s
+
+
+Hence: grid BitVec[5x5x5=125] 
+grid=(repeat[4] ((repeat [4] 00001) @111111)) @(repeat[25] 1))
+fullgrid= (repeat[125] 1)
+
+Pi (0<=i<=12) - pieces
+Ri (0<=Ri<=5) - piece rotation 
+Si (0<=Si<=124) - piece slide
+solution <=> (= fullgrid (xor (grid (or (slide(S0, rot(R0, P0), slide(S1, rot(R1, P1),...slide(S12, rot(R12, P12))))))
+
+slide (i, P BitVec[125]): P >>i 
+
+
+rot (i, P BitVec[125]): mux (i, R0...R5 BitVec[125])
+
+mux: use ite function
+
+create a mapping from x,y,z to a bv[125]
+my grid is:
+z=0		z=1
+ 01234	 01234
+011001	000001
+101001	101101
+200001	200001
+300001	300001
+411111	411111
+
+x+y*5+z*25
+
+with a L shaped: af
+11000010000000000000000000000001100000000000000000
+00001000010000100001111110000100001000010000111111
+
+01100001000000000000000000000000110000000000000000
+00001000010000100001111110000100001000010000111111
+
+00110000100000000000000000000000011000000000000000
+00001000010000100001111110000100001000010000111111
+
+00011000010000000000000000000000001100000000000000 <- nok
+00001000010000100001111110000100001000010000111111
+
+ 01234	 01234
+010001	000001
+110001	100001
+210001	200001
+310001	300001
+411111	411111
+abcdefghijklmnop
+
+with a L shaped: af
+10000100001000010000000000000000000000000000000000
+00001000010000100001111110000100001000010000111111
+
+01000010000100001000000000000000000000000000000000
+00001000010000100001111110000100001000010000111111
+
+00100001000010000100000000000000000000000000000000
+00001000010000100001111110000100001000010000111111
+
+00010000100001000010000000000000000000000000000000
+00001000010000100001111110000100001000010000111111
+
+00001000010000100001000000000000000000000000000000<-nok
+00001000010000100001111110000100001000010000111111
+
+00000100001000010000100000000000000000000000000000<-nok
+00001000010000100001111110000100001000010000111111
+
+00000000000000000000000001000010000100001000000000<-1st ok
+00001000010000100001111110000100001000010000111111
+
+Mapping pieces to xyz coordinates
+Blue0
+1,0,0;0,1,0;1,1,0;2,1,0;2,2,0
+Blue1
+0,0,0;1,0,0;2,0,0;1,1,0;1,1,1
+Blue2
+0,0,0;1,0,0;2,0,0;1,1,0;0,0,1
+Blue3
+0,0,0;1,0,0;1,1,0;1,1,1;2,1,1
+White0
+0,0,0;1,0,0;1,1,0;2,1,0;2,2,0
+White1
+0,0,0;1,0,0;2,0,0;1,1,0;0,1,1
+White2
+0,0,0;1,0,0;1,1,0;1,1,1
+White3
+0,0,0;1,0,0;2,0,0;0,1,0;0,1,1
+White4
+0,0,0;1,0,0;2,0,0;2,1,0;0,0,1
+Red0
+0,0,0;1,0,0;2,0,0;0,1,0;0,0,1
+Red1
+1,0,0;0,1,0;1,1,0;1,2,0;1,2,0
+Red2
+0,0,0;1,0,0;1,1,0;2,1,0;0,0,1
+Red3
+0,0,0;1,0,0;1,1,0;2,1,0;1,0,1
+
+Rotation and translation
+========================
+http://www.siggraph.org/education/materials/HyperGraph/modeling/mod_tran/3drota.htm
+
+Rotation along x axis
+y' = y*cos q - z*sin q
+z' = y*sin q + z*cos q
+x' = x
+Rotation along y axis
+z' = z*cos q - x*sin q
+x' = z*sin q + x*cos q
+y' = y
+
+Rotation along the Z axis
+x' = x*cos q - y*sin q
+y' = x*sin q + y*cos q 
+z' = z
+
+	cos	sin
+0	1	0
+90	0	1
+180	-1	0
+270	0	-1
+
+q=90, sin(90)=1, cos(90)=0
+xrot: 
+x'=x; y'=-z; z'=y
+yrot:
+x'=z;y'=y;z'=-x
+zrot:
+x'=-y;y'=x;z'=z
+
+q=180 cos(180)=-1 sin(180)=0
+xrot:
+x'=x;y'=-y;z'=-z
+yrot:
+x'=-x;y'=y;z'=-z
+zrot:
+x'=-x;y'=-y;z'=z
+
+
+q=270 cos(270)=0 sin(270)=-1
+xrot:
+x'=x;y'=z;z'=-y
+yrot:
+x'=-z;y'=y;z'=x
+zrot:
+x'=y;y'=-x;z'=z
+
+
+
+Mapping from 3D to binary
+=========================
+
+
+
+
+
+Piece 1 has 5 cubes, labeled red 'flat-X-plus'
+Piece 2 has 5 cubes, labeled yellow 'flat-W'
+Piece 3 has 5 cubes, labeled red 'bent-W-tip'
+Piece 4 has 5 cubes, labeled yellow 'folded-X'
+Piece 5 has 5 cubes, labeled red 'z-bump'
+Piece 6 has 5 cubes, labeled yellow 'bent-T'
+Piece 7 has 5 cubes, labeled red 'tall-L-bump'
+Piece 8 has 5 cubes, labeled yellow 'twisted-Z'
+Piece 9 has 5 cubes, labeled yellow 'L-bump-end'
+Piece 10 has 5 cubes, labeled blue 'squiggle'
+Piece 11 has 5 cubes, labeled blue 'bent-R-tip'
+Piece 12 has 4 cubes, labeled yellow 'squiggle'

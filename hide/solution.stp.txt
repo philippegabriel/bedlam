@@ -1,0 +1,145 @@
+>>>>BEGIN>>>>>
+Sun Jun  6 17:47:07 BST 2010
+>>>>>>>>>>>>>>>
+
+Printing: input asserts and query: Node size is: 988
+
+Printing: after pure substitution: Node size is: 986
+
+Printing: after simplification: Node size is: 983
+
+Printing: after solving: Node size is: 985
+
+Printing: after pure substitution: Node size is: 983
+
+Printing: after simplification: Node size is: 983
+
+Printing: after solving: Node size is: 985
+
+Printing: after pure substitution: Node size is: 983
+
+Printing: after simplification: Node size is: 983
+
+Printing: after solving: Node size is: 985
+
+Printing: Before SimplifyWrites_Inplace begins: Node size is: 985
+
+Printing: after pure substitution: Node size is: 983
+
+Printing: after simplification: Node size is: 983
+
+Printing: after solving: Node size is: 985
+
+Printing: After SimplifyWrites_Inplace: Node size is: 985
+
+Printing: before abstraction round begins: Node size is: 985
+
+Printing: After abstraction: Node size is: 985
+
+Printing: after transformation: Node size is: 985
+
+Printing: after bitblasting: Node size is: 39018
+
+Printing: After CNF conversion: 
+Number of clauses:49558
+Number of xor-clauses:0
+============================[ Search Statistics ]==============================
+| Conflicts |          ORIGINAL         |          LEARNT          | Progress |
+|           |    Vars  Clauses Literals |    Limit  Clauses Lit/Cl |          |
+===============================================================================
+|         0 |       0        0        0 |        0        0    nan |  0.000 % |
+===============================================================================
+restarts              : 1
+conflicts             : 0   (0 /sec)
+decisions             : 1   (2 /sec)
+propagations          : 1   (2 /sec)
+conflict literals     : 0   ( nan % deleted)
+Memory used           : 48.98 MB
+CPU time              : 0.552034 s
+============================[ Search Statistics ]==============================
+| Conflicts |          ORIGINAL         |          LEARNT          | Progress |
+|           |    Vars  Clauses Literals |    Limit  Clauses Lit/Cl |          |
+===============================================================================
+|         0 |   17098    24806    49612 |     8268        0    nan |  0.000 % |
+===============================================================================
+restarts              : 2
+conflicts             : 0   (0 /sec)
+decisions             : 11761   (19343 /sec)
+propagations          : 17099   (28122 /sec)
+conflict literals     : 0   ( nan % deleted)
+Memory used           : 50.35 MB
+CPU time              : 0.608038 s
+============================[ Search Statistics ]==============================
+| Conflicts |          ORIGINAL         |          LEARNT          | Progress |
+|           |    Vars  Clauses Literals |    Limit  Clauses Lit/Cl |          |
+===============================================================================
+|         0 |   18913    46943  1648501 |    15647        0    nan |  0.000 % |
+|       101 |   18382    46456  1610334 |    17212       96      8 |  4.277 % |
+|       254 |   18069    46456  1610334 |    18933      246     15 |  7.465 % |
+|       479 |   18069    46456  1610334 |    20827      471     27 |  7.465 % |
+|       818 |   18069    46456  1610334 |    22909      810     24 |  7.465 % |
+|      1324 |   17880    46456  1610334 |    25200     1313     27 | 10.627 % |
+|      2084 |   17694    46456  1610334 |    27720     2072     45 | 11.690 % |
+|      3224 |   16701    42467  1396896 |    30492     3208     37 | 12.758 % |
+|      4933 |   16701    42467  1396896 |    33542     4917     33 | 12.758 % |
+|      7495 |   16300    41849  1387490 |    36896     7475     32 | 13.820 % |
+|     11339 |   16300    41849  1387490 |    40586    11319     32 | 13.820 % |
+|     17105 |   16299    41835  1387461 |    44644    17083     31 | 13.826 % |
+|     25754 |   16299    41835  1387461 |    49109    25732     38 | 13.826 % |
+|     38729 |   16298    41821  1387432 |    54019    38706     36 | 13.831 % |
+|     58190 |   16298    41821  1387432 |    59421    58167     37 | 13.831 % |
+|     87383 |   16296    41819  1387428 |    65364    39810     36 | 13.842 % |
+|    131172 |   16292    41796  1385030 |    71900    29778     40 | 13.863 % |
+|    196857 |   16285    41772  1384981 |    79090    41371     41 | 13.900 % |
+|    295383 |   16280    41736  1382744 |    86999    77824     47 | 13.926 % |
+|    443174 |   16278    41734  1382740 |    95699    86300     59 | 13.937 % |
+|    664858 |   16271    41718  1382708 |   105269    74555     49 | 13.974 % |
+|    997383 |   16258    41670  1380635 |   115796    85072     48 | 14.043 % |
+|   1496173 |   16245    41625  1377157 |   127376    46114     35 | 14.111 % |
+===============================================================================
+restarts              : 25
+conflicts             : 2097580   (1046 /sec)
+decisions             : 4051854   (2020 /sec)
+propagations          : 2269963821   (1131717 /sec)
+conflict literals     : 135142059   (35.96 % deleted)
+Memory used           : 85.13 MB
+CPU time              : 2005.77 s
+checking counterexample
+ASSERT( Wte1shr  = 0x0000000000000000000000000  );
+ASSERT( Red3shr  = 0x000000000000000000000001B  );
+ASSERT( Blu1xyz  = 0b01000  );
+ASSERT( Wte4xyz  = 0b00100  );
+ASSERT( Blu2shr  = 0x0000000000000000000000000  );
+ASSERT( Red0shr  = 0x000000000000000000000000C  );
+ASSERT( Wte1xyz  = 0b00100  );
+ASSERT( Red3xyz  = 0b00101  );
+ASSERT( Wte2shr  = 0x000000000000000000000003E  );
+ASSERT( Blu2xyz  = 0b10110  );
+ASSERT( Red0xyz  = 0b01011  );
+ASSERT( Blu3shr  = 0x0000000000000000000000023  );
+ASSERT( Red1shr  = 0x0000000000000000000000019  );
+ASSERT( Wte2xyz  = 0b01000  );
+ASSERT( Blu0shr  = 0x000000000000000000000004C  );
+ASSERT( Wte3shr  = 0x0000000000000000000000024  );
+ASSERT( Blu3xyz  = 0b00101  );
+ASSERT( Red1xyz  = 0b00001  );
+ASSERT( Wte0shr  = 0x0000000000000000000000006  );
+ASSERT( Red2shr  = 0x000000000000000000000000A  );
+ASSERT( Blu0xyz  = 0b10001  );
+ASSERT( Wte3xyz  = 0b00010  );
+ASSERT( Blu1shr  = 0x0000000000000000000000032  );
+ASSERT( Wte4shr  = 0x0000000000000000000000002  );
+ASSERT( Wte0xyz  = 0b00101  );
+ASSERT( Red2xyz  = 0b10001  );
+
+Number of times the function: Successful_CheckSimplifyMap: is called: 1751
+Number of times the function: ITEOpts_InEqs: is called: 1288
+Number of times the function: CreateSimplifiedITE: is called: 1155
+Number of times the function: CreateSimplifiedEQ: is called: 1610
+Number of times the function: SAT Solver: is called: 3
+sat
+>>>>>>>>>>>>>>>
+Sun Jun  6 18:20:34 BST 2010
+>>>>>END>>>>>>>
+phil@ubuntu:~/projects/bedlam$ 
+

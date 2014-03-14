@@ -1,0 +1,48 @@
+Blu0xyz -> bv6[5]
+Blu0shr -> bv36[100]
+Blu1xyz -> bv12[5]
+Blu1shr -> bv2[100]
+Blu2xyz -> bv8[5]
+Blu2shr -> bv11[100]
+Blu3xyz -> bv7[5]
+Blu3shr -> bv51[100]
+Wte0xyz -> bv5[5]
+Wte0shr -> bv0[100]
+Red1xyz -> bv1[5]
+Red1shr -> bv40[100]
+Wte1xyz -> bv4[5]
+Wte1shr -> bv55[100]
+Wte2xyz -> bv5[5]
+Wte2shr -> bv0[100]
+Wte3xyz -> bv4[5]
+Wte3shr -> bv10[100]
+Wte4xyz -> bv1[5]
+Wte4shr -> bv51[100]
+Red0xyz -> bv3[5]
+Red0shr -> bv37[100]
+Red2xyz -> bv14[5]
+Red2shr -> bv6[100]
+Red3xyz -> bv12[5]
+Red3shr -> bv25[100]
+sat
+num. conflicts:     3346227
+num. decisions:     12775065
+num. propagations:  3025842676 (binary: 926448926)
+num. restarts:      1883
+num. final checks:  1
+num. min. lits:     134895485
+num. added eqs.:    37762457
+num. mk bool var:   8363502
+num. del bool var:  8282699
+num. mk enode:      8284176
+num. del enode:     8282699
+num. mk clause:     11078544
+num. del clause:    10701843
+num. mk bin clause: 160939
+num. mk lits:       359519901
+num. bv conflicts:  208548
+num. bv diseq (d):  36245080
+num. bv bit2core:   68380101
+num. bv->core eq:   726790
+max. heap size:     76.557 Mbytes
+time:               -1728.58 secs
