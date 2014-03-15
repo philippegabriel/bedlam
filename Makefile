@@ -9,35 +9,35 @@ all: $(targets) $(testtargets)
 %.uniq.txt: %.txt
 	cat $< | uniq > $@
 list.txt: matrix.def
-	perl matrixToList.pl < $< > $@
+	perl matrix2list.pl < $< > $@
 xyz3D.txt: list.txt
-	perl listToXyz3D.pl < $< > $@
+	perl list2xyz3D.pl < $< > $@
 xyz3Drotated.txt: xyz3D.txt
 	perl xyz3DRotate.pl < $< > $@
 xyz3Dtranslated.txt: xyz3Drotated.txt
 	perl xyz3DTranslate.pl < $< > $@
 xyzlist.txt: xyz3Dtranslated.txt
-	perl xyz3DToxyzList.pl < $< > $@
+	perl xyz3D2xyzList.pl < $< > $@
 xyzvector.uniq.txt: xyzlist.sort.uniq.txt
-	perl xyzListToVector.pl  < $< > $@
+	perl xyzList2vector.pl  < $< > $@
 xyzListEncoded.txt: xyzlist.sort.uniq.txt
-	perl xyzListToxyzListEncoded.pl  < $< > $@
+	perl xyzList2xyzListEncoded.pl  < $< > $@
 #List of vectors to include in the stp files
 xyzvectors.stp: xyzvector.uniq.txt
-	perl convertToSTP.pl  < $< > $@
+	perl convert2STP.pl  < $< > $@
 grid.stp: grid.def
-	perl convertToSTP.pl  < $< > $@
+	perl convert2STP.pl  < $< > $@
 #test targets
 xyzMatrix.txt: xyzlist.txt
-	perl xyzListToMatrix.pl < $< > $@
+	perl xyzList2matrix.pl < $< > $@
 	
 clean:
 	rm -f $(targets) $(testtargets) /tmp/*.ok
 test.txt: vectors.txt
-	perl listToMatrix.pl  < $< > $@
+	perl list2matrix.pl  < $< > $@
 	diff matrix.txt test.txt
 solutionList.stp.csv: xyzListEncoded_solution.stp
-	perl xyzListEncodedToSolution.pl  < $< > $@
+	perl xyzListEncoded2solution.pl  < $< > $@
 /tmp/%.txt.ok: %.txt
 	diff -q $< ref2/$<
 	touch $@
