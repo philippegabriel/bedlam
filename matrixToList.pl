@@ -33,6 +33,7 @@ while(<>)
 		next;
 		}
 	print 'nothing parsed';
-}#output last vector
+}
+#output last vector
 print $name.$vector0.$vector1."\n";
 
