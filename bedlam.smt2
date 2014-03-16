@@ -806,7 +806,7 @@
 	))
 )
 (check-sat)
-(get-assignment)
+(get-model)
 (exit)
 
 
