@@ -1,7 +1,7 @@
-targets=list.txt xyz3D.txt xyz3Drotated.txt xyz3Dtranslated.txt  
+targets=list.txt xyz.txt xyzRotated.txt xyzTranslated.txt  
 targets+=xyzlist.txt xyzMatrix.txt xyzlist.sort.txt xyzlist.sort.uniq.txt xyzListEncoded.txt
 targets+=xyzvector.uniq.txt xyzvectors.stp grid.stp 
-testtargets=xyz3Drotated.sort.txt xyz3Drotated.sort.uniq.txt
+testtargets=xyzRotated.sort.txt xyzRotated.sort.uniq.txt
 all: $(targets) $(testtargets)
 
 %.sort.txt: %.txt
@@ -10,14 +10,14 @@ all: $(targets) $(testtargets)
 	cat $< | uniq > $@
 list.txt: matrix.def
 	perl matrix2list.pl < $< > $@
-xyz3D.txt: list.txt
-	perl list2xyz3D.pl < $< > $@
-xyz3Drotated.txt: xyz3D.txt
-	perl xyz3DRotate.pl < $< > $@
-xyz3Dtranslated.txt: xyz3Drotated.txt
-	perl xyz3DTranslate.pl < $< > $@
-xyzlist.txt: xyz3Dtranslated.txt
-	perl xyz3D2xyzList.pl < $< > $@
+xyz.txt: list.txt
+	perl list2xyz.pl < $< > $@
+xyzRotated.txt: xyz.txt
+	perl xyzRotate.pl < $< > $@
+xyzTranslated.txt: xyzRotated.txt
+	perl xyzTranslate.pl < $< > $@
+xyzlist.txt: xyzTranslated.txt
+	perl xyz2xyzList.pl < $< > $@
 xyzvector.uniq.txt: xyzlist.sort.uniq.txt
 	perl xyzList2vector.pl  < $< > $@
 xyzListEncoded.txt: xyzlist.sort.uniq.txt
@@ -49,13 +49,13 @@ solutionList.stp.csv: xyzListEncoded_solution.stp
 check: $(addprefix /tmp/, $(addsuffix .ok, $(targets) $(testtargets)))
 bak:
 	diff list.txt  ref/list.txt
-	diff xyz3D.txt ref/xyz3D.txt 
-	diff xyz3Dtranslated.txt  ref/xyz3Dtranslated.txt
+	diff xyz.txt ref/xyz3D.txt 
+	diff xyzTranslated.txt  ref/xyz3Dtranslated.txt
 	diff xyzlist.txt ref/xyzlist.txt
 	diff xyzvectors.stp ref/xyzvectors.stp.txt
 	diff gridDef.stp ref/gridDef.stp.txt 
 	@echo "###ALL CHECK####"
-	diff xyz3Drotated.sort.uniq.txt ref/xyz3Drotated.sort.uniq.txt
+	diff xyzRotated.sort.uniq.txt ref/xyz3Drotated.sort.uniq.txt
 	diff xyzMatrix.txt ref/xyzMatrix.txt
 	diff xyzlist.uniq.txt ref/xyzlist.uniq.txt
 	diff xyzListEncoded.txt ref/xyzListEncoded.txt
