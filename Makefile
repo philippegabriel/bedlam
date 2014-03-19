@@ -1,8 +1,10 @@
-targets=list.txt xyz.txt xyzRotated.txt xyzTranslated.txt  
-targets+=xyzlist.txt xyzMatrix.txt xyzlist.sort.txt xyzlist.sort.uniq.txt xyzListEncoded.txt
-targets+=xyzvector.uniq.txt xyzvectors.smt2 grid.smt2 
-testtargets=xyzRotated.sort.txt xyzRotated.sort.uniq.txt
-all: $(targets) $(testtargets)
+targets=list.txt xyz.txt 
+targets+=xyzRotated.txt xyzRotated.sort.txt xyzRotated.sort.uniq.txt xyzTranslated.txt 
+targets+=xyzlist.txt xyzvector.txt 
+#targets+=xyzListEncoded.txt xyzvectors.smt2 grid.smt2  
+testtargets= xyzMatrix.txt 
+#all: $(targets) $(testtargets)
+all: $(targets)
 
 %.sort.txt: %.txt
 	sort $< > $@
@@ -14,12 +16,14 @@ xyz.txt: list.txt
 	perl list2xyz.pl < $< > $@
 xyzRotated.txt: xyz.txt
 	perl xyzRotate.pl < $< > $@
-xyzTranslated.txt: xyzRotated.txt
+xyzTranslated.txt: xyzRotated.sort.uniq.txt
 	perl xyzTranslate.pl < $< > $@
 xyzlist.txt: xyzTranslated.txt
 	perl xyz2xyzList.pl < $< > $@
-xyzvector.uniq.txt: xyzlist.sort.uniq.txt
+xyzvector.txt: xyzlist.txt
 	perl xyzList2vector.pl  < $< > $@
+
+############################################
 xyzvectors.smt2: xyzvector.uniq.txt
 	perl convert2SMT2.pl  < $< > $@
 grid.smt2: grid.def

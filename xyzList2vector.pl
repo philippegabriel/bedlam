@@ -7,32 +7,33 @@
 #		Keep as such.
 # input on stdin, output on stdout
 #
-#Convert from a List to a vector
-# adds "cube border" encoding
+#Convert from a List to an smt2 fun
+$prevName='';
 while(<>)
 {
 chomp;
 if($_ eq ''){next;}
-@tokens=split(/,/, $_);
-#extract name
-$prevName=$name;
-$name=shift(@tokens);
+($name,$vector)=split(/,/, $_);
 if($prevName eq $name)
-	{$cnt++;}
+	{$i++;}
 else
-	{$cnt=0;}
-print '(let (?'.$name.'_'.$cnt.'(bvbin';
-while(@tokens)
-	{
-	for(1..4)
-		{
-		for(1..4)
-			{print shift(@tokens);}
-#		print '0';
+	{if($prevName ne '')
+#if we moved to the next set of vector, emit the mux function
+		{print ';Pick '.$prevName."\n";
+		print '(define-fun '.$prevName." ((x (_ BitVec 5))) (_ BitVec 100)\n";
+		foreach(0..$i)
+			{printf("(ite (= x (_ bv%d 5)) %s_%d\n",$_,$prevName,$_);}
+		foreach(0..$i)
+			{print ')';}
+		print ")\n";
+#emit the range of the mux function
+		print '(assert (bvule '.$prevName.'xyz (_ bv'.$i." 5 )))\n";
 		}
-#	{print '00000';}
+	$i=0;
 	}
-print "))\n";
+
+#emit the bin vector
+print '(define-fun '.$name.'_'.$i.' () (_ BitVec 100) #b'.$vector.")\n";
+$prevName=$name;
 }
 
-#(let (?Blu0RotX000 (bvbin0100011100001000000000000000000000000000000000000000000000000000000000000000000000000000000000000000))

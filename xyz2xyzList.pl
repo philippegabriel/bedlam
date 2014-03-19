@@ -21,9 +21,9 @@ while(@tokens)
 	$index=$x+4*$y+16*$z;
 	@vector[$index]=1;
 	}
-print $name;
+print $name.',';
 foreach $item(@vector)
-	{print ',',$item;}
+	{print $item;}
 print "\n";
 }
 
